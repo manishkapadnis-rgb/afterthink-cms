@@ -14,7 +14,7 @@ $defaultSlides = [
         'description' => 'We shape elegant environments where material, light and spatial proportion work together.',
         'button_text' => 'View Portfolio',
         'button_url' => baseUrl('portfolio.php'),
-        'image' => baseUrl('assets/images/home-hero-1.jpg')
+        'image' => 'assets/images/home-hero-1.jpg'
     ],
     [
         'label' => 'Interior Stories',
@@ -37,7 +37,14 @@ $slides = $sliders ?: $defaultSlides;
 ?>
 <section class="hero-section position-relative text-white">
     <?php foreach ($slides as $index => $slide):
-        $imageUrl = !empty($slide['image']) ? UPLOAD_URL . getSafe($slide['image']) : '';
+        $imageUrl = '';
+        if (!empty($slide['image'])) {
+            if (preg_match('~^(?:https?://|/|assets/images/)~', $slide['image'])) {
+                $imageUrl = getSafe($slide['image']);
+            } else {
+                $imageUrl = UPLOAD_URL . getSafe($slide['image']);
+            }
+        }
         $backgroundStyle = $imageUrl ? "background-image: url('$imageUrl');" : 'background: linear-gradient(180deg, rgba(17,17,17,0.96) 0%, rgba(17,17,17,0.88) 100%);';
     ?>
         <div class="hero-slide <?= $index === 0 ? 'active' : '' ?>" style="<?= $backgroundStyle ?>">
@@ -70,7 +77,7 @@ $slides = $sliders ?: $defaultSlides;
             </div>
             <div class="col-lg-6">
                 <div class="ratio ratio-4x3 rounded overflow-hidden shadow-sm">
-                    <img src="<?= UPLOAD_URL . ($siteSettings['about_image'] ?? '') ?>" alt="About Afterthink Studio" class="w-100 h-100 object-fit-cover">
+                    <img src="<?= !empty($siteSettings['about_image']) ? UPLOAD_URL . $siteSettings['about_image'] : baseUrl('assets/images/about-hero.jpg') ?>" alt="About Afterthink Studio" class="w-100 h-100 object-fit-cover">
                 </div>
             </div>
         </div>
