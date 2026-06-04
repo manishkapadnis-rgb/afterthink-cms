@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: /afterthink_cms/sitemap.xml

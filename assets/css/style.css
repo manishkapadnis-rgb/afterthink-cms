@@ -1,0 +1,46 @@
+body {
+    font-family: 'DM Sans', sans-serif;
+    color: #222;
+}
+.site-header .nav-link {
+    color: #444;
+    transition: color 0.2s ease;
+}
+.site-header .nav-link:hover,
+.site-header .nav-link.active {
+    color: #b88c40;
+}
+.site-footer {
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+.admin-sidebar {
+    width: 260px;
+    min-height: 100vh;
+}
+.admin-content {
+    min-height: 100vh;
+}
+.admin-sidebar .nav-link {
+    color: #ddd;
+}
+.admin-sidebar .nav-link:hover,
+.admin-sidebar .nav-link.active {
+    color: #fff;
+    text-decoration: none;
+}
+.btn-outline-dark.active {
+    background-color: #212529;
+    color: #fff;
+    border-color: #212529;
+}
+.hero-slider .carousel-caption {
+    backdrop-filter: blur(8px);
+}
+.card img {
+    object-fit: cover;
+}
+@media (max-width: 767px) {
+    .site-header {
+        padding: 0.75rem 0;
+    }
+}

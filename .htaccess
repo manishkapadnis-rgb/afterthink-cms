@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /afterthink_cms/
+
+# SEO friendly routes for pages
+RewriteRule ^project/([^/]+)/?$ project.php?slug=$1 [L,QSA]
+RewriteRule ^blog/([^/]+)/?$ blog-details.php?slug=$1 [L,QSA]
+RewriteRule ^([A-Za-z0-9-]+)/?$ $1.php [L,QSA]
