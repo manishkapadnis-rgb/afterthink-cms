@@ -14,35 +14,42 @@ $items = fetchAll($sql, $params);
 <section class="py-6 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h1>Gallery</h1>
-            <p class="text-muted">A curated collection of images and videos representing our work.</p>
+            <p class="text-uppercase text-muted small mb-2">Gallery</p>
+            <h1 class="section-title">Curated visuals</h1>
+            <p class="section-text">A thoughtful selection of photography and media that captures the atmosphere of our work.</p>
         </div>
-        <div class="mb-4 text-center">
+        <div class="mb-5 text-center">
             <a href="<?= baseUrl('gallery.php') ?>" class="btn btn-sm btn-outline-dark <?= $categorySlug ? '' : 'active' ?>">All</a>
             <?php foreach ($categories as $category): ?>
                 <a href="<?= baseUrl('gallery.php?category=' . urlencode($category['slug'])) ?>" class="btn btn-sm btn-outline-dark <?= $categorySlug === $category['slug'] ? 'active' : '' ?>"><?= getSafe($category['name']) ?></a>
             <?php endforeach; ?>
         </div>
         <div class="row g-4">
-            <?php foreach ($items as $item): ?>
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <?php if ($item['type'] === 'image'): ?>
-                            <a href="<?= UPLOAD_URL . getSafe($item['file']) ?>" target="_blank">
-                                <img src="<?= UPLOAD_URL . getSafe($item['file']) ?>" class="card-img-top" alt="<?= getSafe($item['title']) ?>">
-                            </a>
-                        <?php else: ?>
-                            <div class="ratio ratio-16x9">
-                                <iframe src="<?= getSafe($item['file']) ?>" title="<?= getSafe($item['title']) ?>" allowfullscreen></iframe>
+            <?php if ($items): ?>
+                <?php foreach ($items as $item): ?>
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm overflow-hidden">
+                            <?php if ($item['type'] === 'image'): ?>
+                                <a href="<?= UPLOAD_URL . getSafe($item['file']) ?>" target="_blank">
+                                    <img src="<?= UPLOAD_URL . getSafe($item['file']) ?>" class="card-img-top" alt="<?= getSafe($item['title']) ?>">
+                                </a>
+                            <?php else: ?>
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="<?= getSafe($item['file']) ?>" title="<?= getSafe($item['title']) ?>" allowfullscreen></iframe>
+                                </div>
+                            <?php endif; ?>
+                            <div class="card-body">
+                                <h5 class="card-title"><?= getSafe($item['title']) ?></h5>
+                                <p class="text-muted small mb-0"><?= getSafe($item['category_name']) ?></p>
                             </div>
-                        <?php endif; ?>
-                        <div class="card-body">
-                            <h5 class="card-title"><?= getSafe($item['title']) ?></h5>
-                            <p class="text-muted small mb-0"><?= getSafe($item['category_name']) ?></p>
                         </div>
                     </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="col-12 text-center">
+                    <p class="text-muted">No gallery items are available right now. Please check back later.</p>
                 </div>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>

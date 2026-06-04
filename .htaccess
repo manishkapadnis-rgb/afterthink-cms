@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /afterthink_cms/
+RewriteBase /
 
 # SEO friendly routes for pages
 RewriteRule ^project/([^/]+)/?$ project.php?slug=$1 [L,QSA]
