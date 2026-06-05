@@ -22,7 +22,67 @@ function columnExists(PDO $db, string $table, string $column): bool
     return (int) $stmt->fetchColumn() > 0;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+function seedTable(PDO $db, string $table, array $columns, array $rows): string
+{
+    if ((int) $db->query("SELECT COUNT(*) FROM `{$table}`")->fetchColumn() > 0) {
+        return 'skipped — already has content';
+    }
+    $cols = implode(', ', array_map(static fn (string $c): string => "`{$c}`", $columns));
+    $ph = implode(', ', array_map(static fn (string $c): string => ':' . $c, $columns));
+    $stmt = $db->prepare("INSERT INTO `{$table}` ({$cols}) VALUES ({$ph})");
+    foreach ($rows as $row) {
+        $params = [];
+        foreach ($columns as $i => $c) {
+            $params[$c] = $row[$i];
+        }
+        $stmt->execute($params);
+    }
+    return 'seeded ' . count($rows) . ' rows';
+}
+
+function seedBlog(PDO $db, array $blog): string
+{
+    if ((int) $db->query('SELECT COUNT(*) FROM blog_posts')->fetchColumn() > 0) {
+        return 'skipped — already has posts';
+    }
+    $cat = $db->prepare('SELECT id FROM blog_categories WHERE slug = :s LIMIT 1');
+    $cat->execute(['s' => $blog['category']['slug']]);
+    $catId = $cat->fetchColumn();
+    if (!$catId) {
+        $db->prepare('INSERT INTO blog_categories (name, slug) VALUES (:n, :s)')
+            ->execute(['n' => $blog['category']['name'], 's' => $blog['category']['slug']]);
+        $catId = (int) $db->lastInsertId();
+    }
+    $stmt = $db->prepare('INSERT INTO blog_posts (category_id, title, slug, content, status, published_at) VALUES (:c, :t, :sl, :ct, \'published\', NOW())');
+    foreach ($blog['posts'] as $p) {
+        $stmt->execute(['c' => (int) $catId, 't' => $p['title'], 'sl' => $p['slug'], 'ct' => $p['content']]);
+    }
+    return 'seeded ' . count($blog['posts']) . ' posts';
+}
+
+function runSeed(PDO $db): array
+{
+    $data = require __DIR__ . '/seed_data.php';
+    $results = [];
+    foreach ($data as $table => $cfg) {
+        try {
+            if ($table === 'blog') {
+                $results[] = ['label' => 'blog posts', 'ok' => true, 'detail' => seedBlog($db, $cfg)];
+            } else {
+                $results[] = ['label' => $table, 'ok' => true, 'detail' => seedTable($db, $table, $cfg['columns'], $cfg['rows'])];
+            }
+        } catch (Throwable $e) {
+            $results[] = ['label' => $table, 'ok' => false, 'detail' => $e->getMessage()];
+        }
+    }
+    return $results;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'seed') {
+    requireValidCsrf();
+    $results = runSeed($db);
+    setFlash('Starter content load complete.');
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     requireValidCsrf();
 
     $steps = [
@@ -45,17 +105,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
             return 'ready';
         },
-        'hero_slides seed' => static function (PDO $db): string {
-            if ((int) $db->query('SELECT COUNT(*) FROM hero_slides')->fetchColumn() > 0) {
-                return 'already has rows — left as is';
+        'widen image/url columns' => static function (PDO $db): string {
+            $alters = [
+                'ALTER TABLE `hero_slides` MODIFY `desktop_image` VARCHAR(1024) DEFAULT NULL',
+                'ALTER TABLE `hero_slides` MODIFY `mobile_image` VARCHAR(1024) DEFAULT NULL',
+                'ALTER TABLE `projects` MODIFY `featured_image` VARCHAR(1024) DEFAULT NULL',
+                'ALTER TABLE `projects` MODIFY `gallery_preview` VARCHAR(1024) DEFAULT NULL',
+                'ALTER TABLE `services` MODIFY `image` VARCHAR(1024) DEFAULT NULL',
+                'ALTER TABLE `testimonials` MODIFY `photo` VARCHAR(1024) DEFAULT NULL',
+                'ALTER TABLE `team_members` MODIFY `image` VARCHAR(1024) DEFAULT NULL',
+                'ALTER TABLE `blog_posts` MODIFY `featured_image` VARCHAR(1024) DEFAULT NULL',
+                'ALTER TABLE `project_gallery` MODIFY `image_path` VARCHAR(1024) NOT NULL',
+                'ALTER TABLE `pages` MODIFY `og_image` VARCHAR(1024) DEFAULT NULL',
+            ];
+            $done = 0;
+            foreach ($alters as $sql) {
+                try { $db->exec($sql); $done++; } catch (Throwable $e) { /* column may not exist */ }
             }
-            $db->exec(
-                "INSERT INTO `hero_slides` (`title`,`subtitle`,`button_text`,`button_link`,`sort_order`,`status`) VALUES
-                ('The Poetry of Space','Curation & Design','Explore Interior Design','services',1,'published'),
-                ('Defined Ambition','Executive Environments','Workspace Portfolio','portfolio',2,'published'),
-                ('Timeless Horizons','Architectural Mastery','View Residences','portfolio',3,'published')"
-            );
-            return 'seeded 3 default slides';
+            return "widened {$done} columns to hold long image URLs";
         },
         'login_attempts table' => static function (PDO $db): string {
             $db->exec(
@@ -141,6 +208,20 @@ require __DIR__ . '/partials/layout_top.php';
     <form method="post">
         <input type="hidden" name="csrf_token" value="<?php echo e($csrfToken); ?>">
         <button type="submit">Run Migration</button>
+    </form>
+</div>
+
+<div class="panel">
+    <h2 style="margin-top:0;">Load starter content</h2>
+    <p class="muted">Populates empty modules (hero slides, services, projects,
+        testimonials, team, pages and blog) with the site's starter content so
+        the admin is editable and the frontend renders from the database. Only
+        tables that are currently empty are filled — existing content is never
+        changed or duplicated.</p>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="<?php echo e($csrfToken); ?>">
+        <input type="hidden" name="action" value="seed">
+        <button type="submit">Load Starter Content</button>
     </form>
 </div>
 <?php require __DIR__ . '/partials/layout_bottom.php'; ?>
