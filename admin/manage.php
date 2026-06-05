@@ -334,23 +334,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$schemaError = false;
 $item = null;
-if ($action === 'edit' && $id > 0) {
-    $item = fetchCrudItem($db, $module, $id);
-    if (!$item) {
-        setFlash('Item not found.', 'danger');
-        redirectAdmin('manage.php?module=' . urlencode($moduleKey));
+try {
+    if ($action === 'edit' && $id > 0) {
+        $item = fetchCrudItem($db, $module, $id);
+        if (!$item) {
+            setFlash('Item not found.', 'danger');
+            redirectAdmin('manage.php?module=' . urlencode($moduleKey));
+        }
     }
+} catch (Throwable $e) {
+    $schemaError = true;
 }
 
 $total = 0;
 $items = [];
 $totalPages = 1;
-if ($action === 'list') {
-    $total = countCrudItems($db, $module, $search);
-    $totalPages = max(1, (int) ceil($total / $perPage));
-    $page = min($page, $totalPages);
-    $items = fetchCrudItems($db, $module, $search, $perPage, ($page - 1) * $perPage);
+if ($action === 'list' && !$schemaError) {
+    try {
+        $total = countCrudItems($db, $module, $search);
+        $totalPages = max(1, (int) ceil($total / $perPage));
+        $page = min($page, $totalPages);
+        $items = fetchCrudItems($db, $module, $search, $perPage, ($page - 1) * $perPage);
+    } catch (Throwable $e) {
+        $schemaError = true;
+    }
+}
+
+if ($schemaError) {
+    $errors[] = 'Could not load this module. The “' . $module['table']
+        . '” table may be missing — import database.sql or run database_migration.sql on the database.';
 }
 
 $flash = getFlash();
