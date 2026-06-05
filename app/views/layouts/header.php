@@ -120,6 +120,27 @@
             <a class="font-label-sm text-label-sm <?php echo ($page ?? '') === 'process' ? 'text-tertiary border-b border-tertiary pb-1' : 'text-on-surface-variant hover:text-tertiary'; ?> transition-colors duration-500" href="<?php echo siteUrl('process'); ?>">Process</a>
             <a class="font-label-sm text-label-sm <?php echo ($page ?? '') === 'contact' ? 'text-tertiary border-b border-tertiary pb-1' : 'text-on-surface-variant hover:text-tertiary'; ?> transition-colors duration-500" href="<?php echo siteUrl('contact'); ?>">Contact</a>
         </div>
-        <a class="font-label-sm text-label-sm bg-primary text-on-primary px-6 py-3 uppercase tracking-widest hover:bg-tertiary transition-all duration-300" href="<?php echo siteUrl('contact'); ?>">Get Quote</a>
+        <div class="flex items-center gap-3">
+            <a class="hidden md:inline-block font-label-sm text-label-sm bg-primary text-on-primary px-6 py-3 uppercase tracking-widest hover:bg-tertiary transition-all duration-300" href="<?php echo siteUrl('contact'); ?>">Get Quote</a>
+            <button id="mobile-menu-toggle" class="md:hidden inline-flex items-center justify-center text-on-background p-1" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+        </div>
     </nav>
+    <!-- Mobile off-canvas menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden" aria-hidden="true">
+        <div class="mobile-menu__backdrop" data-menu-close></div>
+        <nav class="mobile-menu__panel" aria-label="Mobile navigation">
+            <button class="mobile-menu__close" data-menu-close aria-label="Close menu">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+            <a href="<?php echo siteUrl(''); ?>">Home</a>
+            <a href="<?php echo siteUrl('about'); ?>">About</a>
+            <a href="<?php echo siteUrl('portfolio'); ?>">Portfolio</a>
+            <a href="<?php echo siteUrl('gallery'); ?>">Gallery</a>
+            <a href="<?php echo siteUrl('process'); ?>">Process</a>
+            <a href="<?php echo siteUrl('contact'); ?>">Contact</a>
+            <a class="mobile-menu__cta" href="<?php echo siteUrl('contact'); ?>">Get Quote</a>
+        </nav>
+    </div>
 </header>

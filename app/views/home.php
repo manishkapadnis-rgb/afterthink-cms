@@ -1,5 +1,5 @@
 ﻿<!-- Hero Slider -->
-<section class="relative h-[921px] w-full overflow-hidden">
+<section class="hero-section relative h-[921px] w-full overflow-hidden">
 <div class="relative w-full h-full" id="slider-container">
 <?php if (!empty($heroSlides)) : ?>
 <?php foreach ($heroSlides as $hi => $slide) : ?>
@@ -317,37 +317,47 @@ $href = $link === '' ? siteUrl('') : (preg_match('#^https?://#', $link) ? $link 
 </a>
 <!-- Footer -->
 <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.hero-slide');
-        const dots = document.getElementById('slide-dots').children;
+        (function () {
+            const slider = document.getElementById('slider-container');
+            if (!slider) return;
+            const slides = slider.querySelectorAll('.hero-slide');
+            const dotsWrap = document.getElementById('slide-dots');
+            const dots = dotsWrap ? dotsWrap.children : [];
+            let current = 0;
+            let timer = null;
 
-        function updateSlider() {
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active');
-                if (index === currentSlide) slide.classList.add('active');
-            });
-            
-            Array.from(dots).forEach((dot, index) => {
-                dot.style.opacity = (index === currentSlide) ? '1' : '0.3';
-            });
-        }
+            function update() {
+                slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
+                Array.from(dots).forEach((dot, i) => { dot.style.opacity = (i === current) ? '1' : '0.3'; });
+            }
+            function go(n) { current = (n + slides.length) % slides.length; update(); }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateSlider();
-        }
+            // Exposed for the prev/next button onclick handlers.
+            window.nextSlide = function () { go(current + 1); };
+            window.prevSlide = function () { go(current - 1); };
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateSlider();
-        }
+            function start() { stop(); if (slides.length > 1) timer = setInterval(window.nextSlide, 5000); }
+            function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
-        // Auto slide
-        setInterval(nextSlide, 6000);
+            // Swipe support on touch devices.
+            let startX = null;
+            slider.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; stop(); }, { passive: true });
+            slider.addEventListener('touchend', function (e) {
+                if (startX === null) return;
+                const dx = e.changedTouches[0].clientX - startX;
+                if (Math.abs(dx) > 40) { dx < 0 ? window.nextSlide() : window.prevSlide(); }
+                startX = null;
+                start();
+            }, { passive: true });
+
+            update();
+            start();
+        })();
 
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
+            if (!header) return;
             if (window.scrollY > 50) {
                 header.classList.add('py-4', 'bg-background/95', 'backdrop-blur-md');
                 header.classList.remove('py-6');
