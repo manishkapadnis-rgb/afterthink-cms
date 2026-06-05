@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 class PageController extends BaseController
 {
+    private ?array $settingsCache = null;
+
     private function safeData(callable $callback, mixed $fallback = []): mixed
     {
         try {
@@ -16,10 +18,53 @@ class PageController extends BaseController
         }
     }
 
+    private function settings(): array
+    {
+        if ($this->settingsCache === null) {
+            $this->settingsCache = (array) $this->safeData(fn (): array => (new SettingModel())->getSettings(), []);
+        }
+        return $this->settingsCache;
+    }
+
+    /**
+     * Build SEO meta for a page, preferring a record's meta_* fields and
+     * falling back to the global SEO defaults from the settings table.
+     */
+    private function meta(array $record = [], string $title = '', string $description = ''): array
+    {
+        $s = $this->settings();
+        $siteName = $s['site_name'] ?? 'Afterthink Studio';
+
+        $metaTitle = $record['meta_title'] ?? ($title !== '' ? $title : ($s['default_meta_title'] ?? $siteName));
+        $metaDesc = $record['meta_description'] ?? ($description !== '' ? $description : ($s['default_meta_description'] ?? ''));
+
+        $root = preg_replace('#^(https?://[^/]+).*#', '$1', (string) (defined('BASE_URL') ? BASE_URL : ''));
+        $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+        $canonical = $record['canonical_url'] ?? ($root . $path);
+
+        $ogImage = $record['og_image'] ?? ($record['featured_image'] ?? ($s['og_image'] ?? ''));
+        if ($ogImage !== '' && !preg_match('#^https?://#', (string) $ogImage)) {
+            $ogImage = siteUrl((string) $ogImage);
+        }
+
+        return [
+            'title' => $metaTitle,
+            'description' => $metaDesc,
+            'keywords' => $record['meta_keywords'] ?? ($s['default_meta_keywords'] ?? ''),
+            'canonical' => $canonical,
+            'og_title' => $record['og_title'] ?? $metaTitle,
+            'og_description' => $record['og_description'] ?? $metaDesc,
+            'og_image' => $ogImage,
+            'site_name' => $siteName,
+        ];
+    }
+
     public function home(array $params = []): void
     {
         $this->render('home', [
             'page' => 'home',
+            'meta' => $this->meta([], 'Afterthink Studio — Architecture & Interior Design'),
+            'heroSlides' => $this->safeData(fn (): array => (new HeroSlideModel())->getActive()),
             'services' => $this->safeData(fn (): array => (new ServiceModel())->getAll()),
             'featuredProjects' => $this->safeData(fn (): array => (new ProjectModel())->getFeatured()),
             'testimonials' => $this->safeData(fn (): array => (new TestimonialModel())->getLatest()),
@@ -28,32 +73,44 @@ class PageController extends BaseController
 
     public function about(array $params = []): void
     {
-        $this->render('about', ['page' => 'about']);
+        $this->render('about', ['page' => 'about', 'meta' => $this->meta([], 'About — Afterthink Studio')]);
     }
 
     public function services(array $params = []): void
     {
-        $this->render('services', ['page' => 'services', 'services' => $this->safeData(fn (): array => (new ServiceModel())->getAll())]);
+        $this->render('services', [
+            'page' => 'services',
+            'meta' => $this->meta([], 'Services — Afterthink Studio'),
+            'services' => $this->safeData(fn (): array => (new ServiceModel())->getAll()),
+        ]);
     }
 
     public function portfolio(array $params = []): void
     {
-        $this->render('portfolio', ['page' => 'portfolio', 'projects' => $this->safeData(fn (): array => (new ProjectModel())->getAll())]);
+        $this->render('portfolio', [
+            'page' => 'portfolio',
+            'meta' => $this->meta([], 'Portfolio — Afterthink Studio'),
+            'projects' => $this->safeData(fn (): array => (new ProjectModel())->getAll()),
+        ]);
     }
 
     public function gallery(array $params = []): void
     {
-        $this->render('gallery', ['page' => 'gallery']);
+        $this->render('gallery', ['page' => 'gallery', 'meta' => $this->meta([], 'Gallery — Afterthink Studio')]);
     }
 
     public function process(array $params = []): void
     {
-        $this->render('process', ['page' => 'process']);
+        $this->render('process', ['page' => 'process', 'meta' => $this->meta([], 'Process — Afterthink Studio')]);
     }
 
     public function testimonials(array $params = []): void
     {
-        $this->render('testimonials', ['page' => 'testimonials', 'testimonials' => $this->safeData(fn (): array => (new TestimonialModel())->getAll())]);
+        $this->render('testimonials', [
+            'page' => 'testimonials',
+            'meta' => $this->meta([], 'Testimonials — Afterthink Studio'),
+            'testimonials' => $this->safeData(fn (): array => (new TestimonialModel())->getAll()),
+        ]);
     }
 
     public function contact(array $params = []): void
@@ -96,6 +153,7 @@ class PageController extends BaseController
 
         $this->render('contact', [
             'page' => 'contact',
+            'meta' => $this->meta([], 'Contact — Afterthink Studio'),
             'errors' => $errors,
             'success' => $success,
             'csrfToken' => csrfToken(),
@@ -105,20 +163,36 @@ class PageController extends BaseController
 
     public function blog(array $params = []): void
     {
-        $this->render('blog', ['page' => 'blog', 'posts' => $this->safeData(fn (): array => (new BlogModel())->getAllPosts())]);
+        $this->render('blog', [
+            'page' => 'blog',
+            'meta' => $this->meta([], 'Journal — Afterthink Studio'),
+            'posts' => $this->safeData(fn (): array => (new BlogModel())->getAllPosts()),
+        ]);
     }
 
     public function blogPost(array $params = []): void
     {
         $post = $this->safeData(fn (): ?array => (new BlogModel())->getPostBySlug($params['slug'] ?? ''), null);
         $posts = $this->safeData(fn (): array => (new BlogModel())->getAllPosts());
-        $this->render('blog', ['page' => 'blog', 'postSlug' => $params['slug'] ?? null, 'post' => $post, 'posts' => $posts]);
+        $this->render('blog', [
+            'page' => 'blog',
+            'meta' => $this->meta($post ?? [], $post['title'] ?? 'Journal — Afterthink Studio', $post ? excerpt($post['content'] ?? '') : ''),
+            'postSlug' => $params['slug'] ?? null,
+            'post' => $post,
+            'posts' => $posts,
+        ]);
     }
 
     public function projectDetail(array $params = []): void
     {
         $project = $this->safeData(fn (): ?array => (new ProjectModel())->getBySlug($params['slug'] ?? ''), null);
         $gallery = $project ? $this->safeData(fn (): array => (new ProjectModel())->getGallery((int) $project['id'])) : [];
-        $this->render('project-detail', ['page' => 'project-detail', 'projectSlug' => $params['slug'] ?? null, 'project' => $project, 'projectGallery' => $gallery]);
+        $this->render('project-detail', [
+            'page' => 'project-detail',
+            'meta' => $this->meta($project ?? [], $project['name'] ?? 'Project — Afterthink Studio', $project ? excerpt($project['description'] ?? '') : ''),
+            'projectSlug' => $params['slug'] ?? null,
+            'project' => $project,
+            'projectGallery' => $gallery,
+        ]);
     }
 }

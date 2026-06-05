@@ -1,6 +1,27 @@
 ﻿<!-- Hero Slider -->
 <section class="relative h-[921px] w-full overflow-hidden">
 <div class="relative w-full h-full" id="slider-container">
+<?php if (!empty($heroSlides)) : ?>
+<?php foreach ($heroSlides as $hi => $slide) : ?>
+<?php
+$bg = $slide['desktop_image'] ?? ($slide['mobile_image'] ?? '');
+$link = (string) ($slide['button_link'] ?? '');
+$href = $link === '' ? siteUrl('') : (preg_match('#^https?://#', $link) ? $link : siteUrl($link));
+?>
+<div class="hero-slide<?php echo $hi === 0 ? ' active' : ''; ?> absolute inset-0 bg-cover bg-center flex items-center justify-center" style="background-image: url('<?php echo e((string) $bg); ?>')">
+<div class="absolute inset-0 bg-black/20"></div>
+<div class="relative z-10 text-center text-on-primary max-w-4xl px-margin-mobile">
+<?php if (!empty($slide['subtitle'])) : ?><span class="font-label-sm text-label-sm uppercase tracking-[0.4em] mb-6 block text-primary-fixed"><?php echo e((string) $slide['subtitle']); ?></span><?php endif; ?>
+<?php if ($hi === 0) : ?>
+<h1 class="font-display-lg text-display-lg mb-8 italic"><?php echo e((string) $slide['title']); ?></h1>
+<?php else : ?>
+<h2 class="font-display-lg text-display-lg mb-8 italic"><?php echo e((string) $slide['title']); ?></h2>
+<?php endif; ?>
+<?php if (!empty($slide['button_text'])) : ?><a class="font-label-sm text-label-sm gold-underline text-on-primary uppercase tracking-widest inline-block" href="<?php echo e($href); ?>"><?php echo e((string) $slide['button_text']); ?></a><?php endif; ?>
+</div>
+</div>
+<?php endforeach; ?>
+<?php else : ?>
 <!-- Slide 1: Living Room -->
 <div class="hero-slide active absolute inset-0 bg-cover bg-center flex items-center justify-center" data-alt="A sun-drenched luxury modern living room with floor-to-ceiling windows overlooking a serene garden. The interior features a sophisticated palette of warm beige, charcoal, and brushed gold accents, with a plush velvet sofa and a marble coffee table. Soft morning light creates a peaceful, high-end editorial atmosphere, emphasizing the clean architectural lines and premium materials." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC0w_EQ8L9JWV8U4s26QIq2CMZ9-ifjB4N5NGY-R0SzVNVQsMojfe8-js1XopQfz7jacAHQBVdAVLo5LL3aJGlC3IPmPpTKHZsxQjqdH0ztxce15KPXg3Znzm344rCta9Ibf8MUgUy0Ry9W0vxNpHpwVzDiqrO3x8QLM_jXTRsKU5OXxQwixt1cFsaaf4-r2N7IPSZEHJWRe0bls0S_OB2DK9__4nBGLOzQbSrmiS88VJJcHDbsOPgJr4Txb63x1aKg25cQe3nB2bA')">
 <div class="absolute inset-0 bg-black/20"></div>
@@ -28,14 +49,16 @@
 <a class="font-label-sm text-label-sm gold-underline text-on-primary uppercase tracking-widest inline-block" href="<?php echo siteUrl('portfolio'); ?>">View Residences</a>
 </div>
 </div>
+<?php endif; ?>
 </div>
 <!-- Slider Controls -->
 <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-12 z-20">
 <button class="text-on-primary/60 hover:text-on-primary transition-colors" onclick="prevSlide()"><span class="material-symbols-outlined">west</span></button>
 <div class="flex gap-4" id="slide-dots">
-<div class="w-12 h-[1px] bg-on-primary opacity-100 transition-all duration-500"></div>
-<div class="w-12 h-[1px] bg-on-primary/30 transition-all duration-500"></div>
-<div class="w-12 h-[1px] bg-on-primary/30 transition-all duration-500"></div>
+<?php $dotCount = !empty($heroSlides) ? count($heroSlides) : 3; ?>
+<?php for ($d = 0; $d < $dotCount; $d++) : ?>
+<div class="w-12 h-[1px] <?php echo $d === 0 ? 'bg-on-primary opacity-100' : 'bg-on-primary/30'; ?> transition-all duration-500"></div>
+<?php endfor; ?>
 </div>
 <button class="text-on-primary/60 hover:text-on-primary transition-colors" onclick="nextSlide()"><span class="material-symbols-outlined">east</span></button>
 </div>

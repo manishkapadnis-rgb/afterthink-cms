@@ -48,6 +48,21 @@ CREATE TABLE `homepage_sections` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `hero_slides` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `subtitle` VARCHAR(255) DEFAULT NULL,
+  `button_text` VARCHAR(150) DEFAULT NULL,
+  `button_link` VARCHAR(255) DEFAULT NULL,
+  `desktop_image` VARCHAR(255) DEFAULT NULL,
+  `mobile_image` VARCHAR(255) DEFAULT NULL,
+  `sort_order` INT NOT NULL DEFAULT 0,
+  `status` ENUM('draft', 'published') NOT NULL DEFAULT 'published',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `services` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -220,3 +235,8 @@ INSERT INTO `settings` (`site_name`, `default_meta_title`, `default_meta_descrip
 
 INSERT INTO `contact_settings` (`phone`, `email`, `address`) VALUES
 ('+1 212 555 0184', 'hello@afterthink.studio', 'Afterthink Studio, Architecture and Interiors');
+
+INSERT INTO `hero_slides` (`title`, `subtitle`, `button_text`, `button_link`, `sort_order`, `status`) VALUES
+('The Poetry of Space', 'Curation & Design', 'Explore Interior Design', 'services', 1, 'published'),
+('Defined Ambition', 'Executive Environments', 'Workspace Portfolio', 'portfolio', 2, 'published'),
+('Timeless Horizons', 'Architectural Mastery', 'View Residences', 'portfolio', 3, 'published');

@@ -95,7 +95,18 @@
             }
         };
     </script>
-    <title><?php echo e(ucwords(str_replace('-', ' ', (string) ($page ?? 'Afterthink Studio')))); ?> | Afterthink Studio</title>
+    <?php $meta = $meta ?? []; ?>
+    <title><?php echo e($meta['title'] ?? (ucwords(str_replace('-', ' ', (string) ($page ?? 'Afterthink Studio'))) . ' | Afterthink Studio')); ?></title>
+    <?php if (!empty($meta['description'])) : ?><meta name="description" content="<?php echo e($meta['description']); ?>"><?php endif; ?>
+    <?php if (!empty($meta['keywords'])) : ?><meta name="keywords" content="<?php echo e($meta['keywords']); ?>"><?php endif; ?>
+    <?php if (!empty($meta['canonical'])) : ?><link rel="canonical" href="<?php echo e($meta['canonical']); ?>"><?php endif; ?>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<?php echo e($meta['site_name'] ?? 'Afterthink Studio'); ?>">
+    <meta property="og:title" content="<?php echo e($meta['og_title'] ?? ($meta['title'] ?? 'Afterthink Studio')); ?>">
+    <?php if (!empty($meta['og_description'])) : ?><meta property="og:description" content="<?php echo e($meta['og_description']); ?>"><?php endif; ?>
+    <?php if (!empty($meta['canonical'])) : ?><meta property="og:url" content="<?php echo e($meta['canonical']); ?>"><?php endif; ?>
+    <?php if (!empty($meta['og_image'])) : ?><meta property="og:image" content="<?php echo e($meta['og_image']); ?>"><?php endif; ?>
+    <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="bg-background text-on-surface font-body-md overflow-x-hidden">
 <header class="w-full top-0 sticky z-50 bg-background/90 backdrop-blur-md border-b border-on-background/10 transition-all ease-in-out duration-300">

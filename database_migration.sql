@@ -30,6 +30,24 @@ SET @sql := IF(@add_projects_sort = 0,
 PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
 -- --------------------------------------------------------------------------
+-- Hero slider (homepage)
+-- --------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hero_slides` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `subtitle` VARCHAR(255) DEFAULT NULL,
+  `button_text` VARCHAR(150) DEFAULT NULL,
+  `button_link` VARCHAR(255) DEFAULT NULL,
+  `desktop_image` VARCHAR(255) DEFAULT NULL,
+  `mobile_image` VARCHAR(255) DEFAULT NULL,
+  `sort_order` INT NOT NULL DEFAULT 0,
+  `status` ENUM('draft', 'published') NOT NULL DEFAULT 'published',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------------------------
 -- Login rate limiting (5 failed attempts per 15 minutes)
 -- --------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `login_attempts` (

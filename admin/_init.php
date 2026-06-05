@@ -14,6 +14,7 @@ require_once __DIR__ . '/../app/models/TestimonialModel.php';
 require_once __DIR__ . '/../app/models/BlogModel.php';
 require_once __DIR__ . '/../app/models/InquiryModel.php';
 require_once __DIR__ . '/../app/models/MediaModel.php';
+require_once __DIR__ . '/../app/models/SettingModel.php';
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_set_cookie_params([

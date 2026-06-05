@@ -5,54 +5,97 @@ declare(strict_types=1);
 require_once __DIR__ . '/_init.php';
 requireAdmin();
 
-$adminEmail = $_SESSION['admin_email'] ?? 'admin@afterthink.com';
+$db = getDatabase();
+
+function dashCount(PDO $db, string $table): int
+{
+    try {
+        return (int) $db->query("SELECT COUNT(*) FROM `{$table}`")->fetchColumn();
+    } catch (Throwable $e) {
+        return 0;
+    }
+}
+
+function dashRows(PDO $db, string $sql): array
+{
+    try {
+        return $db->query($sql)->fetchAll();
+    } catch (Throwable $e) {
+        return [];
+    }
+}
+
+$stats = [
+    ['Services', dashCount($db, 'services'), 'manage.php?module=services'],
+    ['Projects', dashCount($db, 'projects'), 'manage.php?module=projects'],
+    ['Testimonials', dashCount($db, 'testimonials'), 'manage.php?module=testimonials'],
+    ['Blog Posts', dashCount($db, 'blog_posts'), 'manage.php?module=blog'],
+    ['Media Files', dashCount($db, 'media_library'), 'media.php'],
+    ['Inquiries', dashCount($db, 'inquiries'), 'inquiries.php'],
+];
+
+$recentInquiries = dashRows($db, 'SELECT name, email, status, created_at FROM inquiries ORDER BY created_at DESC, id DESC LIMIT 5');
+$recentPosts = dashRows($db, 'SELECT title, slug, status, created_at FROM blog_posts ORDER BY created_at DESC, id DESC LIMIT 5');
+
+$pageTitle = 'Dashboard';
+$activeNav = 'dashboard';
+require __DIR__ . '/partials/layout_top.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Afterthink Studio</title>
-    <link rel="stylesheet" href="<?php echo assetUrl('css/admin.css'); ?>">
-</head>
-<body>
-<div class="admin-wrapper">
-    <header class="admin-header">
-        <h1>Admin Dashboard</h1>
-    </header>
-    <main class="admin-content">
-        <p>Welcome, <?php echo e($adminEmail); ?>.</p>
-        <div class="admin-navigation">
-            <article class="admin-card">
-                <h3>Services</h3>
-                <a href="manage.php?module=services">Manage Services</a>
-            </article>
-            <article class="admin-card">
-                <h3>Projects</h3>
-                <a href="manage.php?module=projects">Manage Projects</a>
-            </article>
-            <article class="admin-card">
-                <h3>Testimonials</h3>
-                <a href="manage.php?module=testimonials">Manage Testimonials</a>
-            </article>
-            <article class="admin-card">
-                <h3>Blog</h3>
-                <a href="manage.php?module=blog">Manage Blog</a>
-            </article>
-            <article class="admin-card">
-                <h3>Media Library</h3>
-                <a href="media.php">Manage Media</a>
-            </article>
-            <article class="admin-card">
-                <h3>Inquiries</h3>
-                <a href="inquiries.php">View Inquiries</a>
-            </article>
-            <article class="admin-card">
-                <h3>Logout</h3>
-                <a href="logout.php">Sign Out</a>
-            </article>
-        </div>
-    </main>
+<div class="stat-grid">
+    <?php foreach ($stats as [$label, $value, $href]) : ?>
+        <a class="stat-card" href="<?php echo e($href); ?>" style="text-decoration:none;color:inherit;">
+            <div class="label"><?php echo e($label); ?></div>
+            <div class="value"><?php echo e((string) $value); ?></div>
+        </a>
+    <?php endforeach; ?>
 </div>
-</body>
-</html>
+
+<div class="panel">
+    <h2 style="margin-top:0;">Quick Actions</h2>
+    <div class="quick-actions">
+        <a href="manage.php?module=hero_slides&action=new">+ Hero Slide</a>
+        <a href="manage.php?module=services&action=new">+ Service</a>
+        <a href="manage.php?module=projects&action=new">+ Project</a>
+        <a href="manage.php?module=blog&action=new">+ Blog Post</a>
+        <a href="media.php">↑ Upload Media</a>
+        <a href="inquiries.php">✉ View Inquiries</a>
+    </div>
+</div>
+
+<div class="dash-cols">
+    <div class="panel">
+        <h2 style="margin-top:0;">Recent Inquiries</h2>
+        <table class="admin-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Received</th></tr></thead>
+            <tbody>
+            <?php foreach ($recentInquiries as $row) : ?>
+                <tr>
+                    <td><?php echo e((string) $row['name']); ?></td>
+                    <td><?php echo e((string) $row['email']); ?></td>
+                    <td><span class="badge <?php echo e((string) $row['status']); ?>"><?php echo e((string) $row['status']); ?></span></td>
+                    <td><?php echo e((string) $row['created_at']); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <?php if (empty($recentInquiries)) : ?><tr><td colspan="4" class="muted">No inquiries yet.</td></tr><?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel">
+        <h2 style="margin-top:0;">Recent Blog Posts</h2>
+        <table class="admin-table">
+            <thead><tr><th>Title</th><th>Status</th><th>Created</th></tr></thead>
+            <tbody>
+            <?php foreach ($recentPosts as $row) : ?>
+                <tr>
+                    <td><a href="manage.php?module=blog">&nbsp;<?php echo e((string) $row['title']); ?></a></td>
+                    <td><span class="badge <?php echo e((string) $row['status']); ?>"><?php echo e((string) $row['status']); ?></span></td>
+                    <td><?php echo e((string) $row['created_at']); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <?php if (empty($recentPosts)) : ?><tr><td colspan="3" class="muted">No posts yet.</td></tr><?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php require __DIR__ . '/partials/layout_bottom.php'; ?>

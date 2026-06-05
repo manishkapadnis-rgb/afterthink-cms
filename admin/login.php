@@ -67,7 +67,7 @@ $csrfToken = csrfToken();
     <header class="admin-header">
         <h1>Afterthink Studio Admin</h1>
     </header>
-    <main class="admin-content">
+    <main class="admin-content admin-content--auth">
         <h2>Sign In</h2>
 
         <?php if (!empty($errors)) : ?>
