@@ -1,7 +1,26 @@
-RewriteEngine On
-RewriteBase /
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-# SEO friendly routes for pages
-RewriteRule ^project/([^/]+)/?$ project.php?slug=$1 [L,QSA]
-RewriteRule ^blog/([^/]+)/?$ blog-details.php?slug=$1 [L,QSA]
-RewriteRule ^([A-Za-z0-9-]+)/?$ $1.php [L,QSA]
+    # No RewriteBase: the relative "index.php" target below resolves against the
+    # directory that contains this file, so routing works whether the app is at
+    # the domain root (production) or in a subfolder (local).
+
+    # Deny direct access to sensitive files
+    <FilesMatch "\.(env|ini|log|bak|sql)$">
+        Require all denied
+    </FilesMatch>
+    <FilesMatch "^(config|database)\.php$">
+        Require all denied
+    </FilesMatch>
+
+    # Do not rewrite existing files or directories
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Serve the admin area, assets, uploads, and public files directly
+    RewriteRule ^(admin|assets|uploads|public)(/.*)?$ - [L]
+
+    # Front controller: route everything else through index.php
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>

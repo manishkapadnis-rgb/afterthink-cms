@@ -1,0 +1,11 @@
+# Local session storage used during testing
+_sess_tmp/
+
+# Uploaded media (keep the directory + access rules, ignore uploaded files)
+uploads/*
+!uploads/.htaccess
+
+# Logs and OS cruft
+*.log
+.DS_Store
+Thumbs.db
