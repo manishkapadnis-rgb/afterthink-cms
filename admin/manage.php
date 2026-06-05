@@ -394,6 +394,9 @@ require __DIR__ . '/partials/layout_top.php';
 <?php if (!empty($errors)) : ?>
     <div class="alert danger"><?php foreach ($errors as $error) : ?><p><?php echo e($error); ?></p><?php endforeach; ?></div>
 <?php endif; ?>
+<?php if (!empty($schemaError)) : ?>
+    <div class="panel"><a class="admin-link" href="migrate.php">Run database migration →</a></div>
+<?php endif; ?>
 
 <?php if ($action === 'new' || $action === 'edit') : ?>
     <div class="panel">
