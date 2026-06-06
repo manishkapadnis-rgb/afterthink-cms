@@ -394,3 +394,48 @@ html, body { overflow-x: hidden; max-width: 100%; }
 /* The off-canvas menu panel is parked off-screen at translateX(100%);
    clip it at the fixed full-viewport container so it never widens the page. */
 .mobile-menu { overflow: hidden; }
+
+/* ============================================================
+   Gallery masonry (these classes were undefined, so images
+   rendered unconstrained and overflowed the viewport).
+   ============================================================ */
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 300px;
+    grid-auto-flow: dense;
+    gap: 24px;
+}
+.masonry-grid > div { overflow: hidden; }
+.masonry-grid > div img { width: 100%; height: 100%; object-fit: cover; }
+.masonry-item-tall { grid-row: span 2; }
+.masonry-item-wide { grid-column: span 2; }
+@media (max-width: 1024px) {
+    .masonry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+    .masonry-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; gap: 16px; }
+    .masonry-item-tall { grid-row: span 1; }
+    .masonry-item-wide { grid-column: span 1; }
+}
+
+/* ============================================================
+   Mobile fit: shrink desktop-only padding and the 32px grid
+   gutter so 12-column editorial grids fit narrow viewports
+   (32px gutter * 11 gaps forced a 352px minimum width).
+   Desktop (>= 768px) is unaffected.
+   ============================================================ */
+@media (max-width: 767px) {
+    body .px-margin-desktop { padding-left: 24px !important; padding-right: 24px !important; }
+}
+
+/* ============================================================
+   Scale oversized display headings on mobile so page <h1>/<h2>
+   (text-display-lg = 84px, text-headline-lg = 48px) don't clip.
+   `body` prefix beats the Tailwind utility regardless of load
+   order; desktop (>= 768px) keeps the original sizes.
+   ============================================================ */
+@media (max-width: 767px) {
+    body .text-display-lg { font-size: clamp(40px, 11vw, 62px); line-height: 1.06; }
+    body .text-headline-lg { font-size: clamp(30px, 7.5vw, 44px); line-height: 1.12; }
+}

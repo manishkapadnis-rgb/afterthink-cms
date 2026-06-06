@@ -60,6 +60,30 @@ function seedBlog(PDO $db, array $blog): string
     return 'seeded ' . count($blog['posts']) . ' posts';
 }
 
+function backfillTable(PDO $db, string $table, array $cfg): string
+{
+    $key = $cfg['backfill']['key'];
+    $keyIdx = array_search($key, $cfg['columns'], true);
+    $n = 0;
+    foreach ($cfg['rows'] as $row) {
+        $sets = [];
+        $conds = [];
+        $params = [':k' => $row[$keyIdx]];
+        foreach ($cfg['backfill']['columns'] as $c) {
+            $idx = array_search($c, $cfg['columns'], true);
+            $sets[] = "`{$c}` = :{$c}";
+            $params[":{$c}"] = $row[$idx];
+            $conds[] = "(`{$c}` IS NULL OR `{$c}` = '')";
+        }
+        $sql = "UPDATE `{$table}` SET " . implode(', ', $sets)
+            . " WHERE `{$key}` = :k AND (" . implode(' OR ', $conds) . ')';
+        $stmt = $db->prepare($sql);
+        $stmt->execute($params);
+        $n += $stmt->rowCount();
+    }
+    return "backfilled {$n} empty value(s)";
+}
+
 function runSeed(PDO $db): array
 {
     $data = require __DIR__ . '/seed_data.php';
@@ -68,9 +92,13 @@ function runSeed(PDO $db): array
         try {
             if ($table === 'blog') {
                 $results[] = ['label' => 'blog posts', 'ok' => true, 'detail' => seedBlog($db, $cfg)];
-            } else {
-                $results[] = ['label' => $table, 'ok' => true, 'detail' => seedTable($db, $table, $cfg['columns'], $cfg['rows'])];
+                continue;
             }
+            $detail = seedTable($db, $table, $cfg['columns'], $cfg['rows']);
+            if (!empty($cfg['backfill'])) {
+                $detail .= '; ' . backfillTable($db, $table, $cfg);
+            }
+            $results[] = ['label' => $table, 'ok' => true, 'detail' => $detail];
         } catch (Throwable $e) {
             $results[] = ['label' => $table, 'ok' => false, 'detail' => $e->getMessage()];
         }

@@ -8,8 +8,8 @@
 </section>
 <!-- Google Reviews Summary Card -->
 <section class="mb-section-padding">
-<div class="grid grid-cols-12 gap-gutter">
-<div class="col-span-12 md:col-span-4 bg-surface-container-low p-12 border border-on-background/5">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-4 bg-surface-container-low p-12 border border-on-background/5">
 <div class="flex items-center gap-2 mb-6">
 <span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
 <span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
@@ -21,7 +21,7 @@
 <div class="font-body-md text-body-md text-on-surface-variant mb-6">Based on 124 verified client experiences on Google Business.</div>
 <a class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest text-underline-gold inline-block" href="<?php echo siteUrl('testimonials'); ?>">Read All Google Reviews</a>
 </div>
-<div class="col-span-12 md:col-span-8 flex flex-col justify-center">
+<div class="md:col-span-8 flex flex-col justify-center">
 <div class="font-body-lg text-body-lg text-on-surface-variant italic border-l-2 border-tertiary pl-8">
                         "<?php echo e((string) ($testimonials[0]['review'] ?? 'Afterthink Studio didn\'t just design a house; they choreographed a lifestyle. Every shadow, every ray of light, and every material choice feels deeply intentional and uniquely ours.')); ?>"
                     </div>
@@ -39,18 +39,18 @@ $company = (string) ($testimonial['company'] ?? '');
 ?>
 <?php if ($t % 2 === 0) : ?>
 <!-- Case Study (image left) -->
-<div class="grid grid-cols-12 gap-gutter items-center">
-<div class="col-span-12 md:col-span-5">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5">
 <div class="relative group overflow-hidden">
-<img class="w-full aspect-[4/5] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out" alt="<?php echo e((string) $testimonial['client_name']); ?>" src="<?php echo e($photo); ?>"/>
+<?php if ($photo !== '') : ?><img class="w-full aspect-[4/5] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out" alt="<?php echo e((string) $testimonial['client_name']); ?>" src="<?php echo e($photo); ?>"/><?php else : ?><div class="w-full aspect-[4/5] bg-surface-container"></div><?php endif; ?>
 </div>
 </div>
-<div class="col-span-12 md:col-span-6 md:col-start-7">
+<div class="md:col-span-6 md:col-start-7">
 <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-6 block"><?php echo e($company !== '' ? $company : 'Client Testimonial'); ?></span>
 <h2 class="font-headline-lg text-headline-lg mb-8 italic">"<?php echo e((string) $testimonial['review']); ?>"</h2>
 <div class="flex items-center gap-4">
 <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
-<img class="w-full h-full object-cover" alt="<?php echo e((string) $testimonial['client_name']); ?>" src="<?php echo e($photo); ?>"/>
+<?php if ($photo !== '') : ?><img class="w-full h-full object-cover" alt="<?php echo e((string) $testimonial['client_name']); ?>" src="<?php echo e($photo); ?>"/><?php endif; ?>
 </div>
 <div>
 <div class="font-label-sm text-label-sm font-bold uppercase tracking-widest"><?php echo e((string) $testimonial['client_name']); ?></div>
@@ -61,13 +61,13 @@ $company = (string) ($testimonial['company'] ?? '');
 </div>
 <?php else : ?>
 <!-- Case Study (text left) -->
-<div class="grid grid-cols-12 gap-gutter items-center">
-<div class="col-span-12 md:col-span-6 order-2 md:order-1">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-6 order-2 md:order-1">
 <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-6 block"><?php echo e($company !== '' ? $company : 'Client Testimonial'); ?></span>
 <h2 class="font-headline-lg text-headline-lg mb-8 italic">"<?php echo e((string) $testimonial['review']); ?>"</h2>
 <div class="flex items-center gap-4">
 <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
-<img class="w-full h-full object-cover" alt="<?php echo e((string) $testimonial['client_name']); ?>" src="<?php echo e($photo); ?>"/>
+<?php if ($photo !== '') : ?><img class="w-full h-full object-cover" alt="<?php echo e((string) $testimonial['client_name']); ?>" src="<?php echo e($photo); ?>"/><?php endif; ?>
 </div>
 <div>
 <div class="font-label-sm text-label-sm font-bold uppercase tracking-widest"><?php echo e((string) $testimonial['client_name']); ?></div>
@@ -75,9 +75,9 @@ $company = (string) ($testimonial['company'] ?? '');
 </div>
 </div>
 </div>
-<div class="col-span-12 md:col-span-5 md:col-start-8 order-1 md:order-2">
+<div class="md:col-span-5 md:col-start-8 order-1 md:order-2">
 <div class="relative group overflow-hidden">
-<img class="w-full aspect-[4/5] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out" alt="<?php echo e((string) $testimonial['client_name']); ?>" src="<?php echo e($photo); ?>"/>
+<?php if ($photo !== '') : ?><img class="w-full aspect-[4/5] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out" alt="<?php echo e((string) $testimonial['client_name']); ?>" src="<?php echo e($photo); ?>"/><?php else : ?><div class="w-full aspect-[4/5] bg-surface-container"></div><?php endif; ?>
 </div>
 </div>
 </div>
@@ -85,8 +85,8 @@ $company = (string) ($testimonial['company'] ?? '');
 <?php endforeach; ?>
 <?php else : ?>
 <!-- Case Study 1 -->
-<div class="grid grid-cols-12 gap-gutter items-center">
-<div class="col-span-12 md:col-span-5">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5">
 <div class="relative group overflow-hidden">
 <img class="w-full aspect-[4/5] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out" data-alt="A luxurious modern architectural living room with floor-to-ceiling windows overlooking a serene pine forest. The interior features minimalist furniture, a large stone fireplace, and warm ambient lighting reflecting off polished concrete floors. The color palette is composed of soft beiges, warm wood tones, and charcoal grey accents, creating an atmosphere of high-end editorial elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_7SpVHIu-jXIfz9e2NeR9uXuiZ74Ui9OFMzR4sHxnSnp_tiU89NV2jbIfuLJMtl4IEfDuVqqTFhDEk6df7WuHSy7dy9j2Ye9JOjD16hwci-_ikOsOjQti-6sgQihQHEm2mz-dOdBKqJ3n4AaqT1g9ap6ivuASY1yaxAe8fTwjMFfUOjHBf1Ny5gEI1RIOY_DdiWn49AKlKQjXEVtMO6t0k_gJtccrbfU5m3vGFeFTNpFvKNajk8xA-wZl5BVJgyWqTwzSWUTz-MY"/>
 <div class="absolute bottom-4 left-4 bg-background p-4 border border-on-background/10 max-w-[140px] shadow-sm">
@@ -95,7 +95,7 @@ $company = (string) ($testimonial['company'] ?? '');
 </div>
 </div>
 </div>
-<div class="col-span-12 md:col-span-6 md:col-start-7">
+<div class="md:col-span-6 md:col-start-7">
 <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-6 block">Project: The Pine Ridge Estate</span>
 <h2 class="font-headline-lg text-headline-lg mb-8 italic">"The process felt less like a renovation and more like an artistic awakening."</h2>
 <p class="font-body-md text-body-md text-on-surface-variant mb-8">Working with Afterthink was a masterclass in subtlety. They took our vague ideas about 'light and space' and translated them into a physical reality that exceeded our wildest dreams. The way the morning sun hits the kitchen island is something we cherish every single day.</p>
@@ -111,8 +111,8 @@ $company = (string) ($testimonial['company'] ?? '');
 </div>
 </div>
 <!-- Case Study 2 -->
-<div class="grid grid-cols-12 gap-gutter items-center">
-<div class="col-span-12 md:col-span-6 order-2 md:order-1">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-6 order-2 md:order-1">
 <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-6 block">Project: Atelier Ocre</span>
 <h2 class="font-headline-lg text-headline-lg mb-8 italic">"An uncompromising vision that respected the soul of the existing structure."</h2>
 <p class="font-body-md text-body-md text-on-surface-variant mb-8">Most designers try to impose their style on you. Afterthink did something rarer: they listened to the building. The result is a studio space that feels ancient and futuristic all at once. It's the perfect environment for my creative practice.</p>
@@ -126,7 +126,7 @@ $company = (string) ($testimonial['company'] ?? '');
 </div>
 </div>
 </div>
-<div class="col-span-12 md:col-span-5 md:col-start-8 order-1 md:order-2">
+<div class="md:col-span-5 md:col-start-8 order-1 md:order-2">
 <div class="relative group overflow-hidden">
 <img class="w-full aspect-[4/5] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out" data-alt="A wide-angle shot of a renovated industrial loft used as a creative atelier. The space features original brick walls painted in a soft white, soaring ceilings with timber beams, and large steel-framed windows. Minimalist black shelving units and a large oak communal table dominate the center, bathed in diffuse natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL662fyhN3pBwyP5Jwz12aPYXgZTyFSR_c2OROrMdAf_MNF99ZSvaIolic6VNGdZDD9aiIQtbEjyPc5iJ1ger433-nUuAW4bkgugHcp4yGzqnYAC8pY13f-IVkqrv74z6UdKBc4WndlbKfBX5rvJ4DX_NNqNSrRuBn6wOto3dITWyYxuryxQbtezmFFEadKuatcmANIUpFxJabIrrd-23d3KhOq7OrlKFui_6WdaRO1PVtCdi-uC5vZyEwVhP6V70owHQHSy3QZvc"/>
 <div class="absolute bottom-4 right-4 bg-background p-4 border border-on-background/10 max-w-[140px] shadow-sm">

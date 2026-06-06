@@ -112,7 +112,7 @@
 <header class="w-full top-0 sticky z-50 bg-background/90 backdrop-blur-md border-b border-on-background/10 transition-all ease-in-out duration-300">
     <nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-6 max-w-[1440px] mx-auto">
         <a class="font-display-lg text-headline-md text-on-background uppercase tracking-widest" href="<?php echo siteUrl(''); ?>">Afterthink Studio</a>
-        <div class="hidden md:flex items-center gap-8" aria-label="Main navigation">
+        <div class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
             <a class="font-label-sm text-label-sm <?php echo ($page ?? '') === 'home' ? 'text-tertiary border-b border-tertiary pb-1' : 'text-on-surface-variant hover:text-tertiary'; ?> transition-colors duration-500" href="<?php echo siteUrl(''); ?>">Home</a>
             <a class="font-label-sm text-label-sm <?php echo ($page ?? '') === 'about' ? 'text-tertiary border-b border-tertiary pb-1' : 'text-on-surface-variant hover:text-tertiary'; ?> transition-colors duration-500" href="<?php echo siteUrl('about'); ?>">About</a>
             <a class="font-label-sm text-label-sm <?php echo ($page ?? '') === 'portfolio' || ($page ?? '') === 'project-detail' ? 'text-tertiary border-b border-tertiary pb-1' : 'text-on-surface-variant hover:text-tertiary'; ?> transition-colors duration-500" href="<?php echo siteUrl('portfolio'); ?>">Portfolio</a>
@@ -121,14 +121,14 @@
             <a class="font-label-sm text-label-sm <?php echo ($page ?? '') === 'contact' ? 'text-tertiary border-b border-tertiary pb-1' : 'text-on-surface-variant hover:text-tertiary'; ?> transition-colors duration-500" href="<?php echo siteUrl('contact'); ?>">Contact</a>
         </div>
         <div class="flex items-center gap-3">
-            <a class="hidden md:inline-block font-label-sm text-label-sm bg-primary text-on-primary px-6 py-3 uppercase tracking-widest hover:bg-tertiary transition-all duration-300" href="<?php echo siteUrl('contact'); ?>">Get Quote</a>
-            <button id="mobile-menu-toggle" class="md:hidden inline-flex items-center justify-center text-on-background p-1" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+            <a class="hidden lg:inline-block font-label-sm text-label-sm bg-primary text-on-primary px-6 py-3 uppercase tracking-widest hover:bg-tertiary transition-all duration-300" href="<?php echo siteUrl('contact'); ?>">Get Quote</a>
+            <button id="mobile-menu-toggle" class="lg:hidden inline-flex items-center justify-center text-on-background p-1" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
             </button>
         </div>
     </nav>
     <!-- Mobile off-canvas menu -->
-    <div id="mobile-menu" class="mobile-menu md:hidden" aria-hidden="true">
+    <div id="mobile-menu" class="mobile-menu lg:hidden" aria-hidden="true">
         <div class="mobile-menu__backdrop" data-menu-close></div>
         <nav class="mobile-menu__panel" aria-label="Mobile navigation">
             <button class="mobile-menu__close" data-menu-close aria-label="Close menu">

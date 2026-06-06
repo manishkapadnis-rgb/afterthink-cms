@@ -9,7 +9,18 @@ function siteUrl(string $path = ''): string
 
 function assetUrl(string $path): string
 {
-    return rtrim(ASSETS_URL, '/') . '/' . ltrim($path, '/');
+    $clean = ltrim($path, '/');
+    $url = rtrim(ASSETS_URL, '/') . '/' . $clean;
+
+    // Cache-busting: append the file's modification time so browsers fetch a
+    // fresh copy whenever an asset changes (production serves assets with a
+    // long max-age, so without this, CSS/JS updates would not reach clients).
+    $file = dirname(__DIR__, 2) . '/assets/' . $clean;
+    if (is_file($file)) {
+        $url .= '?v=' . filemtime($file);
+    }
+
+    return $url;
 }
 
 function e(string $value): string

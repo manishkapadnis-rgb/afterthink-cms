@@ -1,14 +1,14 @@
 ﻿<main>
 <!-- Hero Section -->
 <section class="px-margin-desktop py-section-padding max-w-[1440px] mx-auto overflow-hidden">
-<div class="grid grid-cols-12 gap-gutter items-end">
-<div class="col-span-12 md:col-span-7">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-end">
+<div class="md:col-span-7">
 <h1 class="font-display-lg text-display-lg mb-8">Architectural <br/><span class="italic">Integrity</span>.</h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
                         We don't just design interiors; we curate experiences. Our holistic approach blends structural precision with emotional resonance, crafting spaces that speak the language of quiet luxury.
                     </p>
 </div>
-<div class="col-span-12 md:col-span-5 hidden md:block">
+<div class="md:col-span-5 hidden md:block">
 <div class="aspect-[4/5] bg-surface-container-low relative overflow-hidden">
 <img class="w-full h-full object-cover" data-alt="A sun-drenched, high-end architectural studio space featuring white plaster walls and minimalist furniture. Large floor-to-ceiling windows cast long, soft shadows across a polished limestone floor. The aesthetic is extremely sophisticated, focusing on clean lines and a neutral palette of beige, grey, and soft gold accents. The atmosphere is serene and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPDBzEn144qSLG_yN3w9XcUH4ceCDFMrQfHQXKosZjA7gpHcWbw-R_2CwDb2mSbLOHFZVEkPCQe-mUm1vPXSawAfz-dk6hdqPWxEx8hrXxVa5lLr9ifq5V7luZ7CnxPyZiVDDOP-GJnBR-Os8u4kULcsiRSWz2ZawpaxTJp10S50Ol8XXz_1pqSC4lMbrI7_PvhUx9CHTU14l-UoD9qam_O2RdZjyZ4r3WqVu70zdTrDdVudkwmv8szWsg-QzCiO9wYU3yL_phKeY"/>
 </div>
@@ -17,8 +17,8 @@
 </section>
 <!-- Service: Residential Interiors -->
 <section class="border-t border-on-background/10 px-margin-desktop py-section-padding max-w-[1440px] mx-auto" id="residential">
-<div class="grid grid-cols-12 gap-gutter">
-<div class="col-span-12 md:col-span-4 sticky top-[120px] self-start">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-4 sticky top-[120px] self-start">
 <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-4 block">Service 01</span>
 <h2 class="font-headline-lg text-headline-lg mb-6">Residential <br/>Interiors</h2>
 <ul class="space-y-4 mb-10">
@@ -47,7 +47,7 @@
 </div>
 </div>
 </div>
-<div class="col-span-12 md:col-span-8">
+<div class="md:col-span-8">
 <div class="grid grid-cols-2 gap-4">
 <div class="col-span-2 masonry-item">
 <img class="w-full aspect-[16/9] object-cover" data-alt="A master bedroom suite in a contemporary luxury villa. The room features a soft palette of sand and charcoal with rich velvet textures on the bed. A custom-designed headboard spans the width of the wall, illuminated by concealed warm LED strips. Minimalist art hangs asymmetrically, creating a gallery-like atmosphere. The lighting is low and moody, emphasizing architectural depth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjdfz0gRp79EvR10zOv6K2sEU035763oaMANE4CXWXCXfblc8U-rBC0LRCBYe_y4RfxcUlgLhA7whQg-GExu6aAjASy8HPikT7yMOjnhlSfm__WhgcfSsC09gbgKpCAHMh_q_BmulQ0Rkrhjo7y7S9n5AjzPFDr4piiGW74LLjYGCSYgijHkUQrn2H5NSwUL5PzHy4BiHZLCZQGuYjzISA8CQ_hbKpWxzIcQob9EVs_0kWMxWssgcHAA_wjbh41GoS1hEPMWBEBY0"/>
@@ -64,8 +64,8 @@
 </section>
 <!-- Service: Commercial & Office -->
 <section class="bg-primary-container/50 px-margin-desktop py-section-padding" id="commercial">
-<div class="max-w-[1440px] mx-auto grid grid-cols-12 gap-gutter">
-<div class="col-span-12 md:col-span-8 order-2 md:order-1">
+<div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8 order-2 md:order-1">
 <div class="grid grid-cols-2 gap-4">
 <div class="col-span-1 masonry-item mt-12">
 <img class="w-full aspect-[4/5] object-cover" data-alt="A high-end corporate lobby with a towering green wall and sleek black granite floors. Recessed ceiling lights create rhythmic patterns across the space. Minimalist glass partitions and leather lounge seating provide a sophisticated waiting area. The aesthetic is clean, professional, and grounded in corporate luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGn7l3HiTlGvAxYZPOC04VDtTrlIdEexTffAojvM8xl14dLairkKj5qaXmSkULivQkCAVxDq0MaaH-GCXuM7JBKqsGs406hbO3iYAESKO_NOKXDmv45fmHvJCW7QcYoStTlNtsYcdRHLxVufWFVv-7F2v5ItG8sShX6yVGnSR0n0SMwdnr-oj4K_TgzKARZBKQBJEBg1t4GLDkCi-bb1UcaDXrkUwednfgXKJiTEzMUmijwNnPu7EzOnThdjN6WhI3rh_OnY9mtQM"/>
@@ -78,7 +78,7 @@
 </div>
 </div>
 </div>
-<div class="col-span-12 md:col-span-4 order-1 md:order-2 sticky top-[120px] self-start md:pl-12">
+<div class="md:col-span-4 order-1 md:order-2 sticky top-[120px] self-start md:pl-12">
 <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-4 block">Service 02</span>
 <h2 class="font-headline-lg text-headline-lg mb-6">Commercial <br/>&amp; Office</h2>
 <ul class="space-y-4 mb-10">
@@ -111,8 +111,8 @@
 </section>
 <!-- Service: Retail Interiors -->
 <section class="px-margin-desktop py-section-padding max-w-[1440px] mx-auto" id="retail">
-<div class="grid grid-cols-12 gap-gutter">
-<div class="col-span-12 md:col-span-4 sticky top-[120px] self-start">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-4 sticky top-[120px] self-start">
 <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest mb-4 block">Service 03</span>
 <h2 class="font-headline-lg text-headline-lg mb-6">Retail <br/>Environments</h2>
 <p class="font-body-md text-body-md text-on-surface-variant mb-8">
@@ -144,8 +144,8 @@
 </div>
 </div>
 </div>
-<div class="col-span-12 md:col-span-8">
-<div class="grid grid-cols-12 gap-4">
+<div class="md:col-span-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
 <div class="col-span-7 masonry-item">
 <img class="w-full aspect-[3/4] object-cover" data-alt="A minimalist luxury fashion boutique with curved white walls and hidden shelf lighting. Clothing racks are integrated into the architecture as simple gold rails. The flooring is a seamless terrazzo, and the lighting is high-key and flattering. The design feels like an art gallery where the products are the exhibits." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3Gym88xZnJzeKKqh94PqmezQdfghK254VDJYeBWFeCTkii7iBdGiYzFqgZMlQ4lPBH0rxAOaha1M4xmC0oFAScj-vKbFgPT-v5_4RIY2KRSSiaauJwJjOuc2jb-Bx8aJPvIHNImdKp0iUzyqFuO_MeOhlbz_-zr3_IOa3GIk-ULR8ifwchASVMlEzQYbYjpUm5zqpBILGT_ag4lj5QIST5yJ15jUYhOpuZbB1QEPTBHEa53LK7azR6dH7i7y1NGm5Dc-usPZOdkc"/>
 </div>

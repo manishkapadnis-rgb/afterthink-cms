@@ -28,7 +28,7 @@ $projectDescription = $project['description']
 <!-- Project Overview & Requirements -->
 <section class="py-section-padding px-margin-desktop max-w-[1440px] mx-auto">
 <div class="grid-asymmetric">
-<div class="col-span-12 md:col-span-5 border-t border-on-background/10 pt-12">
+<div class="md:col-span-5 border-t border-on-background/10 pt-12">
 <h2 class="font-label-sm text-label-sm text-tertiary uppercase mb-8">Brief</h2>
 <p class="font-body-lg text-body-lg text-on-surface mb-8">
                         <?php echo nl2br(e((string) $projectDescription)); ?>
@@ -48,7 +48,7 @@ $projectDescription = $project['description']
 </div>
 </div>
 </div>
-<div class="col-span-12 md:col-start-8 md:col-span-5 pt-12">
+<div class="md:col-start-8 md:col-span-5 pt-12">
 <h2 class="font-label-sm text-label-sm text-tertiary uppercase mb-8">The Challenge</h2>
 <p class="font-body-md text-body-md text-on-surface-variant italic border-l-2 border-tertiary pl-6">
                         "The primary challenge was to create a sense of 'heavy weight' through materials like solid travertine while maintaining an atmosphere of 'lightness' through strategic voids and suspended architectural elements. We wanted the house to feel like it had always been part of the rocky terrain."
@@ -63,12 +63,12 @@ $projectDescription = $project['description']
 <h2 class="font-display-lg text-headline-lg text-on-surface">Design Concept: The Void</h2>
 </div>
 <div class="grid-asymmetric items-center">
-<div class="col-span-12 md:col-span-7">
+<div class="md:col-span-7">
 <div class="image-zoom-container bg-surface-container border border-on-background/5">
 <img alt="Architectural Sketch" class="w-full mix-blend-multiply opacity-80" data-alt="An architectural conceptual sketch of a modern minimalist residence. The sketch shows clean, charcoal lines on a textured beige paper background, illustrating the interplay of solid stone masses and negative space. High-end editorial feel with artistic notations and subtle shadows that emphasize the three-dimensional form of the project." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_vZE_Q0ptLVT4TUf2xCaZHR3nkQXtelsMczYx8DRrLfikgjwxbNd5R8dxA9hFyMlePvcDIoIjQDSOm_8aGh8ZGLqWp7xhvoDNnB0bhtWrNJM7jLa4LWIR51K3X5j91lEy5PQLfIuBbIXUvbmahmpkBit8fkYdBouIZH2ik_I2LKgITkndI_QsYHNsopsB3Pv6Vv5ZTvF-GrTxkqRt1KDqTBsKgVRLs4y5bbMMHJhsWjgeyudmwbzEYo6Ph1VQqznQ-yL617DC5j8"/>
 </div>
 </div>
-<div class="col-span-12 md:col-span-4 md:col-start-9">
+<div class="md:col-span-4 md:col-start-9">
 <p class="font-label-sm text-label-sm text-tertiary uppercase mb-4">Initial Ideation</p>
 <h3 class="font-headline-md text-headline-md text-on-surface mb-6">Structural Poetics</h3>
 <p class="font-body-md text-body-md text-on-surface-variant">

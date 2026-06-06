@@ -14,6 +14,11 @@ $P2 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuD3X2OX7doTPL2BldncMBU
 $P3 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAEfgw5YMshZzK0DN3Z1wLDIDClbq0ytDoKb871uGg2AXYXl_sR7K2U0gMSz0PW-MXjyEzmuRfmepWHRtB8bTEmxa6YNRRrmy3np8TpDgWo58oqHGTMe8zJQ84WK49aM5D6ysE9cCJShfTHWKxq0sT0cmjNBermMKtToS_JOYliWpiJcWKMb5ieOQD7_vImMmDOw3ZvL7EhkLN71dSEroU6URcsSLA5P6DxoBlhVzPDHN6d5S0kWqp9Qnn4yWKbh9JeCGdKe_4H_ts';
 $P4 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDhh7O1L23XUtVI0Hq3gyXpZMcyzACD97ovvo9m-e2LaG7OzN-5O3o5zye-oBGStyQLFSDzWItLB55IGJ-XBqWO0p0CM2tWEEo3PQ8hAfWhiODkMTsMp7nmbd3VEDFs_JLPcnCTb0b4C4ErTZ-Fgnh4MBd34STVtFo5An5Fgn3z65vIYVNOixFOzOQxiQWKpiINGXj-uMKyBKen9v_gdx34Aw3qcPt4SpAfuKRpuXmtAlNdny2xOWW0cRlSjnKFBza7GA3hy8iAQYQ';
 $P5 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuB4OrYbDtErhBAAIiamQBAZn5hamyJnK1et61VHLog1BzkdoG5zXvAJxPz_p0J8bhN13943V23uYls_EgqlcCc2IuM9-WFKbrDy9RAKD9BuXIrjapQ3884fuMNPWxmYaC4d2vY-ksAF5iUZrLH6XleFarsOxJfBUktXrQKkqoO26OLaHZJfQgjnNoYmVkFKyyUxVx9f6zM7amU_ab5Lu61x0qN5Vz931wrwS6THpEhPfZC8fcf0P2qisHQ01jBqQIyepLz4D1zDQlA';
+$SV1 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDbmtiUNiR0L745LDVENrRkfi9RW8BIr1gHXt0ttuyN8goSCjvNcKjARD1Bl3d_C_GCMtFGqgMKr9vW8rgAMebsthSsXA0oWsqHYboFJahh922elsHBftFgWbA-6Qvwh9csBdtSGQCXbXpoFphE2R0Sjoz7WPwPoAvuMFMEEMbfi5TY_VAHNKbh_IgO15zeWSfmyjG-UREgn11OgYSDtq7-hEsEi-538hWvTY2c97EQv8Fi0cabcfSd_QaMoPHD_pnVJSSflZq46UY';
+$SV2 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuA20Ube3BKt4N49Anv10bEcd8K6VCRA50o33788LO_AFNbhZQChb0p9THTL9T8jyX3TeWzksgISwNZ4_DHP3-GegrQ_pS36vj1cJqeD1U99HNmODtrNNZSq2EyP5mJUj_xajmMpKgG6CW2U2o45yAMK-UEKanmNvYPWNT38jdBkwD_MOBdHgdEnR0wGpDzjLWAt70QPaNeaTyXrhAuQawuPphlIwy9K-s1Mf--rP0Hi2GBxXVqByKR05aQlzUXSjUMZN1btG524JlQ';
+$SV3 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuCTWj4aeVRyVkjsq7POMhrLSkWS5bUoFzSPbZLRWEoi3agxS_gOW4FGv0lorb0zrR6cKvMHiHZ3_MdmuYZD1vAuEuICAqTn7pcWygQ0HYtcDLgn4705vo2V7aRfdCNqU78Hicf61sxN3N0zkCjV2t7coEObnGwb5G-4s03E42X0exjv3_1Vm4tngMWRTAPhfjnEH8DpO_v13P8ES2RzxEUwq4XJCD5Hya2qplzNOhO684fg7aOoEca_AHryvZkYtFgAm6VCpFG6iPk';
+$TM1 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDU0niwy8UqQ2EbVm9wp5SakGYToj4vKdhsvjPy62bXLDARso9xgyVTwNqGPlvu9dw8StDbvsKiRpfpc0T_RocUfZ88k76qF_3KI1ypV2KIqrGghOWj-1ZkPwYon52Ta3H90AU44wlyD1akegymfElCFjXaTGuw15UDYCFBNjmZEY4IblFOsquzQmzjArIYFViu7bLcN2ESvPNzUkB0OxgMl16PP8PooJwEQT52GIUth8qG83oyxPlts8bBCXt7neB2o6Wx_EKWv-0';
+$TM2 = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAig9Halhe9cu5plg48aNIHQsps86XjitJ3EmPLpG-hyJsQbQ8lQ2WqTZpEkWBoBXQHljrlB4eMuFT_ljJrMPSDNBRb40OUxeULkscbIDje_SPiRuNvs_gpFdQ8UQ25x3B8nhgCU-Wtbw1MZNiykKwSJv7LrznVGUV4jGpVm7mOP6yyJU0JHAUTleeGQS-zN9nX0AA1eOwmdW7G0gqQHTs4VgJwFUyGbchkjTbzRwRKlf0mwvSET5umUK36-9xi0yPqR6UqYuzWFvw';
 
 return [
     'hero_slides' => [
@@ -25,12 +30,13 @@ return [
         ],
     ],
     'services' => [
-        'columns' => ['name', 'slug', 'description', 'icon', 'sort_order', 'status'],
+        'columns' => ['name', 'slug', 'description', 'image', 'icon', 'sort_order', 'status'],
+        'backfill' => ['key' => 'slug', 'columns' => ['image']],
         'rows' => [
-            ['Interior Curation', 'interior-curation', 'Bespoke interior solutions that blend contemporary art with functional permanence.', 'chair', 1, 'published'],
-            ['Architectural Design', 'architectural-design', 'Structural masterpieces designed to integrate seamlessly with the natural landscape.', 'architecture', 2, 'published'],
-            ['Exterior Artistry', 'exterior-artistry', 'Landscape and terrace designs that serve as an extension of the internal living experience.', 'yard', 3, 'published'],
-            ['Turnkey Execution', 'turnkey-execution', 'A seamless journey from initial sketch to the final styling, managing vendors and quality control.', 'key', 4, 'published'],
+            ['Interior Curation', 'interior-curation', 'Bespoke interior solutions that blend contemporary art with functional permanence.', $SV1, 'chair', 1, 'published'],
+            ['Architectural Design', 'architectural-design', 'Structural masterpieces designed to integrate seamlessly with the natural landscape.', $SV2, 'architecture', 2, 'published'],
+            ['Exterior Artistry', 'exterior-artistry', 'Landscape and terrace designs that serve as an extension of the internal living experience.', $SV3, 'yard', 3, 'published'],
+            ['Turnkey Execution', 'turnkey-execution', 'A seamless journey from initial sketch to the final styling, managing vendors and quality control.', $SV1, 'key', 4, 'published'],
         ],
     ],
     'projects' => [
@@ -44,10 +50,11 @@ return [
         ],
     ],
     'testimonials' => [
-        'columns' => ['client_name', 'company', 'review', 'rating', 'status'],
+        'columns' => ['client_name', 'company', 'review', 'photo', 'rating', 'status'],
+        'backfill' => ['key' => 'client_name', 'columns' => ['photo']],
         'rows' => [
-            ['Eleanor Vance', 'Residential Client, California', 'The process felt less like a renovation and more like an artistic awakening. The way the morning sun hits the kitchen island is something we cherish every single day.', 5, 'published'],
-            ['Julian Marat', 'Artist & Gallery Owner', 'Most designers try to impose their style on you. Afterthink listened to the building. The result feels ancient and futuristic all at once.', 5, 'published'],
+            ['Eleanor Vance', 'Residential Client, California', 'The process felt less like a renovation and more like an artistic awakening. The way the morning sun hits the kitchen island is something we cherish every single day.', $TM1, 5, 'published'],
+            ['Julian Marat', 'Artist & Gallery Owner', 'Most designers try to impose their style on you. Afterthink listened to the building. The result feels ancient and futuristic all at once.', $TM2, 5, 'published'],
         ],
     ],
     'team_members' => [

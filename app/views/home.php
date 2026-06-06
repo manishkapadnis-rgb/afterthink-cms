@@ -101,7 +101,7 @@ $href = $link === '' ? siteUrl('') : (preg_match('#^https?://#', $link) ? $link 
 <!-- Service -->
 <div class="group cursor-pointer">
 <div class="aspect-[16/9] overflow-hidden mb-6 bg-surface-variant">
-<img alt="<?php echo e((string) $service['name']); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s]" src="<?php echo e((string) ($service['image'] ?? '')); ?>"/>
+<?php if (!empty($service['image'])) : ?><img alt="<?php echo e((string) $service['name']); ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s]" src="<?php echo e((string) $service['image']); ?>"/><?php endif; ?>
 </div>
 <h3 class="font-display-lg text-headline-md mb-4 group-hover:text-tertiary transition-colors duration-300"><?php echo e((string) $service['name']); ?></h3>
 <div class="w-full h-[1px] bg-on-background/10 mb-4"></div>
@@ -158,7 +158,7 @@ $href = $link === '' ? siteUrl('') : (preg_match('#^https?://#', $link) ? $link 
 <div class="masonry-item">
 <div class="aspect-[4/5] overflow-hidden mb-8 bg-surface-container">
 <a href="<?php echo siteUrl('project/' . rawurlencode((string) ($fp['slug'] ?? ''))); ?>">
-<img alt="<?php echo e((string) $fp['name']); ?>" class="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-[1s]" src="<?php echo e((string) ($fp['featured_image'] ?? '')); ?>"/>
+<?php if (!empty($fp['featured_image'])) : ?><img alt="<?php echo e((string) $fp['name']); ?>" class="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-[1s]" src="<?php echo e((string) $fp['featured_image']); ?>"/><?php endif; ?>
 </a>
 </div>
 <div class="flex justify-between items-start">
