@@ -12,3 +12,6 @@ define('DB_CHARSET', 'utf8mb4');
 
 define('UPLOADS_PATH', __DIR__ . '/uploads');
 define('ASSETS_URL', BASE_URL . '/assets');
+
+// Fallback brand logo used when no logo is configured in Settings.
+define('DEFAULT_LOGO', ASSETS_URL . '/img/afterthink-logo.jpg');

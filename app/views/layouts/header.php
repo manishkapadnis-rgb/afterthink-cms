@@ -111,7 +111,10 @@
 <body class="bg-background text-on-surface font-body-md overflow-x-hidden">
 <header class="w-full top-0 sticky z-50 bg-background/90 backdrop-blur-md border-b border-on-background/10 transition-all ease-in-out duration-300">
     <nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-6 max-w-[1440px] mx-auto">
-        <a class="font-display-lg text-headline-md text-on-background uppercase tracking-widest" href="<?php echo siteUrl(''); ?>">Afterthink Studio</a>
+        <?php $siteName = siteSettings()['site_name'] ?? 'Afterthink Studio'; ?>
+        <a class="flex items-center shrink-0" href="<?php echo siteUrl(''); ?>" aria-label="<?php echo e($siteName); ?> — Home">
+            <img class="h-10 w-auto" src="<?php echo e(logoUrl()); ?>" alt="<?php echo e($siteName); ?>">
+        </a>
         <div class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
             <a class="font-label-sm text-label-sm <?php echo ($page ?? '') === 'home' ? 'text-tertiary border-b border-tertiary pb-1' : 'text-on-surface-variant hover:text-tertiary'; ?> transition-colors duration-500" href="<?php echo siteUrl(''); ?>">Home</a>
             <a class="font-label-sm text-label-sm <?php echo ($page ?? '') === 'about' ? 'text-tertiary border-b border-tertiary pb-1' : 'text-on-surface-variant hover:text-tertiary'; ?> transition-colors duration-500" href="<?php echo siteUrl('about'); ?>">About</a>

@@ -1,7 +1,10 @@
 <footer class="w-full py-section-padding bg-surface-container-low border-t border-on-background/10">
     <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter">
         <div class="md:col-span-5">
-            <h2 class="font-display-lg text-headline-lg mb-6">Afterthink Studio</h2>
+            <?php $siteName = siteSettings()['site_name'] ?? 'Afterthink Studio'; ?>
+            <a class="inline-flex items-center mb-6" href="<?php echo siteUrl(''); ?>" aria-label="<?php echo e($siteName); ?> — Home">
+                <img class="h-12 w-auto" src="<?php echo e(logoUrl()); ?>" alt="<?php echo e($siteName); ?>">
+            </a>
             <p class="font-body-md text-on-surface-variant max-w-md">Architecture and interior design studio dedicated to quiet luxury, material discipline, and spaces with lasting atmosphere.</p>
         </div>
         <nav class="md:col-span-4 md:col-start-7 grid grid-cols-2 gap-4 font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant" aria-label="Footer navigation">

@@ -28,6 +28,37 @@ function e(string $value): string
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Lazily load and cache the global site settings row so layouts can read
+ * branding (logo, site name) without each controller passing it explicitly.
+ */
+function siteSettings(): array
+{
+    static $cache = null;
+    if ($cache === null) {
+        try {
+            $cache = (new SettingModel())->getSettings();
+        } catch (Throwable $exception) {
+            $cache = [];
+        }
+    }
+    return $cache;
+}
+
+/**
+ * Resolve the brand logo to a usable URL. Accepts an absolute URL or an
+ * asset-relative path from Settings, falling back to the bundled default.
+ */
+function logoUrl(): string
+{
+    $logo = trim((string) (siteSettings()['logo'] ?? ''));
+    if ($logo === '') {
+        return defined('DEFAULT_LOGO') ? DEFAULT_LOGO : '';
+    }
+
+    return preg_match('#^https?://#', $logo) ? $logo : assetUrl($logo);
+}
+
 function excerpt(?string $value, int $maxChars = 160): string
 {
     $text = trim(preg_replace('/\s+/', ' ', strip_tags((string) $value)) ?? '');
